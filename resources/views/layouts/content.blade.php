@@ -129,7 +129,7 @@ a.article{
 }
 
 </style>
-
+<div class="">
     <div class="row">
         <div class="col-md-3">
             <div class="wrapper">
@@ -179,7 +179,7 @@ a.article{
 
                 <ul class="list-unstyled CTAs">
                     <li>
-                        <a href="{{ asset('file/course_template.ods') }}" class="download">Download class template</a>
+                        <a href="{{ asset('file/course_template.ods') }}" class="download">Download class template</a
                     </li>
                     <li>
                         <a href="{{ asset('file/CA_Marks_Template.ods') }}" class="article">Download CA template</a>
@@ -188,28 +188,22 @@ a.article{
             </nav>
             </div>
         </div>
-        <div class="container">
+        <dir class="container">
             <div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-headin">
-                <div class="panel-body">
+            <div class="">
+                <div class="">
+                <div class="">
                     @if (session('status'))
                         <div class="alert alert-success">
                             {{ session('status') }}
                         </div>
                     @endif
-                <div class="btn-group mr-2" role="group" aria-label="First group">
-                    <a href="{{action('CourseController@index')}}" class="btn btn-primary">Add Course </a>
-                    <a href="#" class="btn btn-primary">Add Student</a>
-                    <a href="#" class="btn btn-primary">Add Option </a>
-                    <a href="#" class="btn btn-primary">Add Lecturer </a>
-                    <a href="#" class="btn btn-primary">Add Department </a>
-                    <a href="#" class="btn btn-primary">Add User </a>
+
+                    @yield('forms')
                 </div>
             </div>
-            </div>
         </div>
-        </div>
+        </dir>
         
     </div>
 </div>
