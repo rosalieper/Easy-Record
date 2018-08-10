@@ -205,6 +205,18 @@ a.article{
                     <a href="#" class="btn btn-primary">Add Lecturer </a>
                     <a href="#" class="btn btn-primary">Add Department </a>
                     <a href="#" class="btn btn-primary">Add User </a>
+                </div><br><hr>
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                    <a href="{{action('ExamController@index')}}" class="btn btn-warning">Add Exam Marks </a>
+                    <a href="#" class="btn btn-warning">Add CA Marks</a>
+                    <a href="#" class="btn btn-warning">Add Merge MArks </a>
+                    <a href="#" class="btn btn-warning">Generate Statistics table </a>
+                </div><br><hr>
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                    <a href="#" class="btn btn-default text-primary">Class List </a>
+                    <a href="#" class="btn btn-default text-primary">Course List</a>
+                    <a href="#" class="btn btn-default text-primary">Class results </a>
+                    <a href="#" class="btn btn-default text-primary">Course results</a>
                 </div>
             </div>
             </div>

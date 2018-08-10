@@ -2,7 +2,7 @@
 
 @section('forms')
 <div class="panel panel-default">
-	<div class="panel-heading">
+	<div class="panel-heading text-primary">
 		<h3>Add A Course</h3>
 	</div>
 	<div class="panel-body">
@@ -32,7 +32,7 @@
 		         echo 'The file selected must be an excel file.';
 		    ?>
 		    <input type="file" name="import_file">
-		    <button type="submit" class="btn btn-warning btn-right">Send</button>
+		    <button type="submit" class="btn btn-primary btn-right">Send</button>
 		</form>
 	</div>
 </div>
