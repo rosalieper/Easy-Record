@@ -2,6 +2,7 @@
 
 @section('content')
 
+
 <style type="text/css">
     
 
@@ -95,7 +96,7 @@ a[data-toggle="collapse"] {
 }
 
 ul ul a {
-    font-size: 0.9em !important;
+    font-size: 1em !important;
     padding-left: 30px !important;
     background: #6d7fcc;
 }
@@ -144,7 +145,7 @@ a.article{
                         <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
                         <ul class="collapse list-unstyled" id="homeSubmenu">
                             <li>
-                                <a href="#">Home 1</a>
+                                <a href="{{url('/home')}}">Home</a>
                             </li>
                             <li>
                                 <a href="#">Home 2</a>
@@ -198,8 +199,11 @@ a.article{
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    @yield('forms')
+                    @guest
+                        <h2>Please <a class="btn btn-primary" href="{{ route('login') }}">Login</a></h2>
+                    @else
+                        @yield('forms')
+                    @endguest
                 </div>
             </div>
         </div>
