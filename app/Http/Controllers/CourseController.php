@@ -8,6 +8,8 @@ use App\Student;
 use App\Course;
 use DB;
 use Input;
+use File;
+use Session;
 
 class CourseController extends Controller
 {
@@ -53,36 +55,47 @@ class CourseController extends Controller
             'course_instructor'=>'required',
             'course_level' => 'required',
             'course_option'=>'required',
-            'import_file' => 'required'
+            'import_file' => 'required|mimes:xls,xlsx,csv'
 
         ]);
+        if($request->hasFile('import_file')){
+            $extension = File::extension($request->import_file->getClientOriginalName());
          $course->saveCourse($data);  
        
-        if($request->hasFile('import_file')){
-            error_log("message2");
-            error_log($request);
+        if($extension == "xlsx" || $extension == "xls" || $extension == "csv")
+        {
             $path = $request->file('import_file')->getRealPath();
             $file_data = Excel::load($path, function($reader) {})->get();
 
-            if(!empty($file_data) && $file_data->count()){
+            if(!empty($file_data) && $file_data->count())
+            {
 
-                foreach ($file_data->toArray() as $key => $value) {
-                    if(!empty($value)){
-                        foreach ($value as$v) {
+                foreach ($file_data->toArray() as $key => $value)
+                {
+                    if(!empty($value))
+                    {
+                        foreach ($value as$v)
+                        {
                             
-                            $insert[] = ['student_id_num' => $v['student_id_num'], 'student_name' => $v['student_name'], 'student_level' => $data['course_level'], 'student_option'=> $data['course_option']];
+                            $insert[] = ['student_id_num' => $v['student_matricule'], 'student_name' => $v['student_name'], 'student_level' => $data['course_level'], 'student_option'=> $data['course_option']];
                         }
                     }
                 }
                  
-                if(!empty($insert)){
+                if(!empty($insert))
+                {
                     Student::insert($insert);
                 }
             }
+            Session::flash('success', 'Your Data has successfully imported');
             return redirect('/home')->with('success', 'New support Course has been created! Wait sometime to get resolved');
         }
-       // return back()->with('error','Please Check your file, Something is wrong there.');
-        
+    //return back()->with('error','Please Check your file, Something is wrong there.');
+        else {
+                Session::flash('error', 'File is a '.$extension.' file.!! Please upload a valid xls/csv file..!!');
+                return back();
+            }
+        }
     }
     
 

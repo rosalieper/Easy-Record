@@ -2,6 +2,16 @@
 
 @section('forms')
 <div class="">
+	@if ($errors->any())
+	    <div class="alert alert-danger">
+	        <ul>
+	            @foreach ($errors->all() as $error)
+	                <li>{{ $error }}</li>
+	            @endforeach
+	        </ul>
+	    </div>
+	@endif
+
 	<div class="col-md-8">
 		<h3>Hello</h3>
 		<div class="table-responsive text-center">
@@ -21,7 +31,7 @@
   							data-name="{{$item->student_id_num}}">
   							<span class="glyphicon glyphicon-edit"></span> Edit
   						</button>
-  						<button class="delete-modal btn" 
+  						<button class="delete-modal btn"
   							data-id="{{$item->exam_code}}" data-name="{{$item->student_id_num}}">
   							<span class="glyphicon glyphicon-trash"></span> Delete
   						</button></td>

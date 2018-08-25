@@ -141,36 +141,36 @@ a.article{
                 <ul class="list-unstyled components">
                     <p>Faculty of Engineering and Technology</p>
                     <li class="active">
-                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
+                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home Options</a>
                         <ul class="collapse list-unstyled" id="homeSubmenu">
                             <li>
-                                <a href="#">Home 1</a>
+                                <a href="{{url('/home')}}">Home</a>
                             </li>
                             <li>
-                                <a href="#">Home 2</a>
+                                <a href="#">Courses</a>
                             </li>
                             <li>
-                                <a href="#">Home 3</a>
+                                <a href="#">Students</a>
+                            </li>
+                            <li>
+                                <a href="#">Course Instructors</a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a href="#">About</a>
-                        <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
+                        <a href="#">Process Statistics</a>
+                        <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Other options</a>
                         <ul class="collapse list-unstyled" id="pageSubmenu">
                             <li>
-                                <a href="#">Page 1</a>
+                                <a href="#">Transaction</a>
                             </li>
                             <li>
-                                <a href="#">Page 2</a>
-                            </li>
-                            <li>
-                                <a href="#">Page 3</a>
+                                <a href="#">Users</a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a href="#">Portfolio</a>
+                        <a href="#">User Manual</a>
                     </li>
                     <li>
                         <a href="#">Contact</a>
@@ -179,10 +179,10 @@ a.article{
 
                 <ul class="list-unstyled CTAs">
                     <li>
-                        <a href="{{ asset('file/course_template.ods') }}" class="download">Download class template</a>
+                        <a href="{{ asset('file/course_template.xls') }}" class="download">Download class template</a>
                     </li>
                     <li>
-                        <a href="{{ asset('file/CA_Marks_Template.ods') }}" class="article">Download CA template</a>
+                        <a href="{{ asset('file/CA_Marks_Template.xls') }}" class="article">Download CA template</a>
                     </li>
                 </ul>
             </nav>
@@ -200,7 +200,7 @@ a.article{
                     @endif
                 <div class="btn-group mr-2" role="group" aria-label="First group">
                     <a href="{{action('CourseController@index')}}" class="btn btn-primary">Add Course </a>
-                    <a href="#" class="btn btn-primary">Add Student</a>
+                    <a href="{{action('StudentController@addStudent')}}" class="btn btn-primary">Add Student</a>
                     <a href="#" class="btn btn-primary">Add Option </a>
                     <a href="#" class="btn btn-primary">Add Lecturer </a>
                     <a href="#" class="btn btn-primary">Add Department </a>
@@ -208,8 +208,8 @@ a.article{
                 </div><br><hr>
                 <div class="btn-group mr-2" role="group" aria-label="First group">
                     <a href="{{action('ExamController@index')}}" class="btn btn-warning">Add Exam Marks </a>
-                    <a href="#" class="btn btn-warning">Add CA Marks</a>
-                    <a href="#" class="btn btn-warning">Merge Marks </a>
+                    <a href="{{action('ExamController@showCA')}}" class="btn btn-warning">Add CA Marks</a>
+                    <a href="{{action('ExamController@showMerge')}}" class="btn btn-warning">Merge Marks </a>
                     <a href="#" class="btn btn-warning">Generate Statistics table </a>
                 </div><br><hr>
                 <div class="btn-group mr-2" role="group" aria-label="First group">
