@@ -22,6 +22,9 @@
 			 <input type="file" name="file"><br>
 			 <input type="submit" name="send" class="btn btn-warning">
 		</div>
+		<div class="col-md-5">
+			<img src="{{asset('images/ca.png')}}">
+		</div>
 	</div>
 	
 </div>

@@ -28,3 +28,6 @@ Route::post('exam/ca', 'ExamController@uploadCA');
 Route::get('exam/merge', 'ExamController@showMerge');
 Route::post('exam/merge', 'ExamController@downloadResults');
 Route::get('student/add', 'StudentController@addStudent');
+Route::get('option/add', 'OptionController@addOption');
+Route::get('lecturer/add', 'LecturerController@addLecturer');
+Route::get('user/add', 'UserController@addUser');

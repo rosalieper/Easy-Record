@@ -11,23 +11,19 @@
                 <a href="#" class="btn btn-primary">Add Department </a>
                 <a href="{{action('UserController@addUser')}}" class="btn btn-primary">Add User </a>
                 </div>
-            <h3>Add A studen to a course</h3><hr>
+            <h3>Add Option</h3><hr>
 	</div>
 	<div class="panel-body">
 		<div class="col-md-6">
-			<label>Student Name:</label>
-			<input type="text" name="student_name" class="form-control" placeholder="please enter name" required>
-			<label>Student matricule</label>
-			<input type="text" name="student matricule" class="form-control" placeholder="please enter matricule" required>
-			<label>Level</label>
-			<input type="text" name="level" class="form-control" placeholder="please enter level" required>
-			<label>Course Code:</label>
-			<input type="text" name="course_code" class="form-control" placeholder="please enter course code" required>
-			
-			 <br><input type="submit" name="send" class="btn btn-primary">
-		</div>
-		<div class="col-md-5">
-			<img src="{{asset('images/student.jpeg')}}">
+			<label>Department</label>
+			<select class="form-control" name='course_option'required>
+		      <option>Computer</option>
+		      <option>Electrical</option>
+		      <option>Civil</option>
+		    </select>
+			<label>Option</label>
+			<input type="text" name="option" class="form-control" placeholder="please new Option" required>
+			<br><input type="submit" name="send" class="btn btn-primary">
 		</div>
 	</div>
 	

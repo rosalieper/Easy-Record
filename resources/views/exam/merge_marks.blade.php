@@ -19,6 +19,9 @@
 
 			 <input type="submit" name="send" class="btn btn-warning">
 		</div>
+		<div class="col-md-5">
+			<img src="{{asset('images/result_download.png')}}">
+		</div>
 	</div>
 	
 </div>

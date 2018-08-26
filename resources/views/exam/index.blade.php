@@ -28,6 +28,9 @@
 			    </select><br>
 			    <button type="submit" class="btn btn-warning btn-right">Send</button>
 			</form>
+			<div class="col-md-5">
+				<img src="{{asset('images/exam.png')}}">
+			</div>
 		</div>
 	</div>
 </div>
