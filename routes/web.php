@@ -24,7 +24,7 @@ Route::post('/exam/create', 'ExamController@create');
 Route::post('/exam/store', 'ExamController@store');
 Route::post('/exam/delete', 'ExamController@delete');
 Route::get('exam/ca', 'ExamController@showCA');
-Route::post('exam/ca', 'ExamController@uploadCA');
+Route::post('exam/upload', 'ExamController@uploadCA');
 Route::get('exam/merge', 'ExamController@showMerge');
 Route::post('exam/merge', 'ExamController@downloadResults');
 Route::get('student/add', 'StudentController@addStudent');

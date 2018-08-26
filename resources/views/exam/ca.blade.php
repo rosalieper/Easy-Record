@@ -13,14 +13,24 @@
 	</div>
 	<div class="panel-body">
 		<div class="col-md-6">
+	@if($data)
+	    <div class="alert alert-danger">
+	        <ul>
+	            	{{$data}}
+	        </ul>
+	    </div>
+	@endif
+			<form method="post" class="form-group" action="{{url('exam/upload')}}" enctype="multipart/form-data">
+				 {{ csrf_field() }}
 			<label>Course Code:</label>
 			<input type="text" name="course_code" class="form-control" placeholder="please enter course code" required>
 			<?php
 					 echo 'Import class list for course. ';
 			         echo 'The file selected must be an excel file.';
 			    ?>
-			 <input type="file" name="file"><br>
+			 <input type="file" name="file" required><br>
 			 <input type="submit" name="send" class="btn btn-warning">
+			</form>
 		</div>
 		<div class="col-md-5">
 			<img src="{{asset('images/ca.png')}}">
