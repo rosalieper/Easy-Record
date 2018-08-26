@@ -33,9 +33,9 @@ class ExamController extends Controller
         return view('exam.ca')->withData($data);
     }
 
-    public function showMerge()
+    public function showExam()
     {
-        return view('exam.merge_marks');
+        return view('exam.exam_marks');
     }
 
     //Get the values from the exam.index view and set the ExamController properties then return
@@ -55,6 +55,7 @@ class ExamController extends Controller
         return view('exam.create')->withData($data);
     }
 
+//store exam codes and mape to students
     public function store(Request $request) 
     {
          $rules = array (
@@ -81,7 +82,8 @@ class ExamController extends Controller
 
             if($course && $student){
                 DB::table('student_has_course')
-                    ->where('student_id_num', $student->student_id_num)
+                    ->where([['student_id_num', $student->student_id_num],
+                            ['course_code', $exam_session['course_code']],])
                     ->update(['exam_code' => $exam_code1]);
                 $data = StudentCourse::where('course_code',$exam_session['course_code'])->get();
                 //var_dump($data);
@@ -141,6 +143,65 @@ class ExamController extends Controller
                         }
                         else{
                             $data = "Oops! The course does not exist or some of the students in the file do not exist";
+                            return view('exam.ca')->withData($data);    
+                        }
+
+                    }
+                    else{
+                        $data = "Oops! The file is empty";
+                        return view('exam.ca')->withData($data);    
+                    }
+                }       
+            }
+            else{
+                $data = "Oops! The file is empty";
+                return view('exam.ca')->withData($data);    
+            }
+        }
+        else{
+            $data = "Oops! upload an excel file";
+            return view('exam.ca')->withData($data);    
+        }
+        $data = "Successfull upload!!!";
+        return view('exam.ca')->withData($data);
+    }
+
+    public function uploadExam(Request $request)
+    {
+
+        $rules = array (
+            'course_code' => 'required',
+            'file'=>'required'
+        );
+        $validator = Validator::make ( Input::all (), $rules );
+        error_log('message');
+        if($request->hasFile('file'))
+        {
+
+            $path = $request->file('file')->getRealPath();
+            $file_data = Excel::load($path, function($reader) {})->get();
+
+            if(!empty($file_data) && $file_data->count())
+            {
+                error_log('message2');
+                foreach ($file_data->toArray() as $key => $value)
+                {
+                    if(!empty($value))
+                    {
+                        $insert = ['course_code'=>$request->course_code, 'exam_code'=>$value['exam_code'], 'exam_mark' => $value['exam_mark']];
+                        $course = course::where('course_code', $request->course_code)->first();
+                        $student = StudentCourse::where([['exam_code', $value['exam_code']],
+                                                        ['course_code', $request->course_code],])->first();
+                        if($course && $student)
+                        {
+                            $total = $value['exam_mark'] + $student->ca_mark;
+                            DB::table('student_has_course')
+                                ->where([['exam_code', $value['exam_code']],
+                                        ['course_code', $request->course_code],])
+                                ->update(['exam_mark' => $value['exam_mark'], 'total_mark' => $total]);
+                        }
+                        else{
+                            $data = "Oops! The course does not exist or some of the codes in the file do not exist";
                             return view('exam.ca')->withData($data);    
                         }
 
