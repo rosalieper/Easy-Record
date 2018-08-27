@@ -11,7 +11,7 @@
                 <a href="#" class="btn btn-primary">Add Department </a>
                 <a href="{{action('UserController@addUser')}}" class="btn btn-primary">Add User </a>
                 </div>
-            <h3>Add A studen to a course</h3><hr>
+            <h3>Add A student to a course</h3><hr>
 	</div>
 	<div class="panel-body">
 		<div class="col-md-6">

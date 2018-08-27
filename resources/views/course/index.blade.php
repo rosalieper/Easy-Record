@@ -25,12 +25,12 @@
 			<label for="exampleInputEmail1">Course Instructor:</label>
 			<input type="text" name="course_instructor" placeholder="course instructor" class="form-control" required>
 			<label for="exampleInputEmail1">Course Status:</label>
-			<select class="form-control" id="exampleFormControlSelect1" name='course_option'required>
+			<select class="form-control" id="exampleFormControlSelect1" name='course_status'required>
 		      <option>C</option>
 		      <option>E</option>
 		    </select>
 			<label for="exampleInputEmail1">Course Level</label>
-			<select class="form-control" id="exampleFormControlSelect1" name='course_option'required>
+			<select class="form-control" id="exampleFormControlSelect1" name='course_level'required>
 		      <option>200</option>
 		      <option>300</option>
 		      <option>400</option>

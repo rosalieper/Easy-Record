@@ -93,7 +93,8 @@ class ExamController extends Controller
                 return view('exam.create')->withData($data);    
 
             }
-            Session::flash('Data Error:', 'Your Data was not imported');
+            $error = 'Opps! the student does not exist for'. $exam_session['course_code'];
+            return view('exam.create')->withData($error);
         //return back();
         }
 
@@ -129,8 +130,10 @@ class ExamController extends Controller
                     if(!empty($value))
                     {
                         $insert = ['course_code'=>$request->course_code, 'student_name'=>$value['student_name'], 'student_id_num' => $value['student_matricule'], 'ca_mark' => $value['ca_mark']];
+                        //dd($insert);
                         $course = course::where('course_code', $request->course_code)->first();
-                        $student = Student::where('student_id_num', $value['student_matricule'])->first();
+                        $student = Student::where('student_id_num', $insert['student_id_num'])->first();
+                        //dd($student);
                         if($course && $student)
                         {
                             $data = new StudentCourse();
