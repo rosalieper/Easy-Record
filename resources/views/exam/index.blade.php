@@ -9,7 +9,7 @@
                 <a href="{{action('ExamController@showCA')}}" class="btn btn-warning">Add CA Marks</a>
                 <a href="{{action('ExamController@index')}}" class="btn btn-warning">Add Exam Codes </a>
                 <a href="{{action('ExamController@showExam')}}" class="btn btn-warning">Exam Marks </a>
-                <a href="#" class="btn btn-warning">Generate results table </a>
+                <a href="{{action('CourseController@courseResult')}}" class="btn btn-warning">Generate results table </a>
             </div><br>
             <h3>Exams Insersion</h3><hr>
 		</div>

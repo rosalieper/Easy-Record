@@ -29,9 +29,10 @@ class CourseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function courseResult()
     {
         //
+        return view('course.download_result');
 
     }
 
@@ -118,9 +119,10 @@ class CourseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function showResult(Request $request)
     {
         //
+        
     }
 
     /**

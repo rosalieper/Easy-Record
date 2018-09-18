@@ -32,3 +32,5 @@ Route::get('student/add', 'StudentController@addStudent');
 Route::get('option/add', 'OptionController@addOption');
 Route::get('lecturer/add', 'LecturerController@addLecturer');
 Route::get('user/add', 'UserController@addUser');
+Route::get('get/result', 'CourseController@courseResult');
+Route::post('view/result', 'CourseController@showResult');
