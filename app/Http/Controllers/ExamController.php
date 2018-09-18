@@ -10,6 +10,9 @@ use Validator;
 use Response;
 use Session;
 use Illuminate\Support\Facades\Input;
+use Excel;
+use File;
+use DB;
 
 class ExamController extends Controller
 {
@@ -26,13 +29,13 @@ class ExamController extends Controller
 
     public function showCA()
     {
-        
-        return view('exam.ca');
+        $data = Null;
+        return view('exam.ca')->withData($data);
     }
 
-    public function showMerge()
+    public function showExam()
     {
-        return view('exam.merge_marks');
+        return view('exam.exam_marks');
     }
 
     //Get the values from the exam.index view and set the ExamController properties then return
@@ -52,6 +55,7 @@ class ExamController extends Controller
         return view('exam.create')->withData($data);
     }
 
+//store exam codes and mape to students
     public function store(Request $request) 
     {
          $rules = array (
@@ -77,13 +81,10 @@ class ExamController extends Controller
             $student = Student::where('student_id_num', $request->matricule)->first();
 
             if($course && $student){
-                $data = new StudentCourse ();
-                $data->student_id = $student->id;
-                $data->course_id = $course->id;
-                $data->exam_code = $exam_code1;
-                $data->course_code = $exam_session['course_code'];
-                $data->student_id_num = $request->matricule;
-                $data->save ();
+                DB::table('student_has_course')
+                    ->where([['student_id_num', $student->student_id_num],
+                            ['course_code', $exam_session['course_code']],])
+                    ->update(['exam_code' => $exam_code1]);
                 $data = StudentCourse::where('course_code',$exam_session['course_code'])->get();
                 //var_dump($data);
                 $request->session()->forget('exam_code');
@@ -92,7 +93,8 @@ class ExamController extends Controller
                 return view('exam.create')->withData($data);    
 
             }
-            Session::flash('Data Error:', 'Your Data was not imported');
+            $error = 'Opps! the student does not exist for'. $exam_session['course_code'];
+            return view('exam.create')->withData($error);
         //return back();
         }
 
@@ -108,10 +110,12 @@ class ExamController extends Controller
 
     public function uploadCA(Request $request)
     {
-        $data = $this->validate($request, [
-            'course_code'=>'required',
-            'file'=>'required|mimes:xls,xlsx,csv'
-        ]);
+        $rules = array (
+            'course_code' => 'required',
+            'file'=>'required'
+        );
+        $validator = Validator::make ( Input::all (), $rules );
+        error_log('message');
         if($request->hasFile('file'))
         {
 
@@ -120,25 +124,107 @@ class ExamController extends Controller
 
             if(!empty($file_data) && $file_data->count())
             {
-
+                error_log('message2');
                 foreach ($file_data->toArray() as $key => $value)
                 {
                     if(!empty($value))
                     {
-                        foreach ($value as$v)
+                        $insert = ['course_code'=>$request->course_code, 'student_name'=>$value['student_name'], 'student_id_num' => $value['student_matricule'], 'ca_mark' => $value['ca_mark']];
+                        //dd($insert);
+                        $course = course::where('course_code', $request->course_code)->first();
+                        $student = Student::where('student_id_num', $insert['student_id_num'])->first();
+                        //dd($student);
+                        if($course && $student)
                         {
-                            
-                            $insert[] = ['course_code'=>$data['course_code'], 'student_id_num' => $v['student_matricule'], 'ca_mark' => $v['C.A.']];
+                            $data = new StudentCourse();
+                            $data->student_id = $student->id;
+                            $data->course_id = $course->id;
+                            $data->course_code = $insert['course_code'];
+                            $data->student_id_num = $insert['student_id_num'];
+                            $data->ca_mark = $insert['ca_mark'];
+                            $data->save();
                         }
-                    }
-                }
-                 
-                if(!empty($insert))
-                {
-                    Student::insert($insert);
-                }
+                        else{
+                            $data = "Oops! The course does not exist or some of the students in the file do not exist";
+                            return view('exam.ca')->withData($data);    
+                        }
 
+                    }
+                    else{
+                        $data = "Oops! The file is empty";
+                        return view('exam.ca')->withData($data);    
+                    }
+                }       
+            }
+            else{
+                $data = "Oops! The file is empty";
+                return view('exam.ca')->withData($data);    
             }
         }
+        else{
+            $data = "Oops! upload an excel file";
+            return view('exam.ca')->withData($data);    
+        }
+        $data = "Successfull upload!!!";
+        return view('exam.ca')->withData($data);
+    }
+
+    public function uploadExam(Request $request)
+    {
+
+        $rules = array (
+            'course_code' => 'required',
+            'file'=>'required'
+        );
+        $validator = Validator::make ( Input::all (), $rules );
+        error_log('message');
+        if($request->hasFile('file'))
+        {
+
+            $path = $request->file('file')->getRealPath();
+            $file_data = Excel::load($path, function($reader) {})->get();
+
+            if(!empty($file_data) && $file_data->count())
+            {
+                error_log('message2');
+                foreach ($file_data->toArray() as $key => $value)
+                {
+                    if(!empty($value))
+                    {
+                        $insert = ['course_code'=>$request->course_code, 'exam_code'=>$value['exam_code'], 'exam_mark' => $value['exam_mark']];
+                        $course = course::where('course_code', $request->course_code)->first();
+                        $student = StudentCourse::where([['exam_code', $value['exam_code']],
+                                                        ['course_code', $request->course_code],])->first();
+                        if($course && $student)
+                        {
+                            $total = $value['exam_mark'] + $student->ca_mark;
+                            DB::table('student_has_course')
+                                ->where([['exam_code', $value['exam_code']],
+                                        ['course_code', $request->course_code],])
+                                ->update(['exam_mark' => $value['exam_mark'], 'total_mark' => $total]);
+                        }
+                        else{
+                            $data = "Oops! The course does not exist or some of the codes in the file do not exist";
+                            return view('exam.ca')->withData($data);    
+                        }
+
+                    }
+                    else{
+                        $data = "Oops! The file is empty";
+                        return view('exam.ca')->withData($data);    
+                    }
+                }       
+            }
+            else{
+                $data = "Oops! The file is empty";
+                return view('exam.ca')->withData($data);    
+            }
+        }
+        else{
+            $data = "Oops! upload an excel file";
+            return view('exam.ca')->withData($data);    
+        }
+        $data = "Successfull upload!!!";
+        return view('exam.ca')->withData($data);
     }
 }

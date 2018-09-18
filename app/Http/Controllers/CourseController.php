@@ -29,9 +29,10 @@ class CourseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function courseResult()
     {
         //
+        return view('course.download_result');
 
     }
 
@@ -43,27 +44,27 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        error_log('Store');
         $student = new Student();
         $course = new Course();
-        error_log('message');
         $data = $this->validate($request, [
             'course_name'=> 'required',
             'course_code'=>'required',
-            'course_status'=>'required',
             'course_cv'=>'required',
             'course_instructor'=>'required',
-            'course_level' => 'required',
-            'course_option'=>'required',
-            'import_file' => 'required|mimes:xls,xlsx,csv'
+            'course_status'=>'required',
+            'course_level'=>'required',
+            'course_option' => 'required',
+            'import_file' => 'required'
 
         ]);
+        error_log('Store');
         if($request->hasFile('import_file')){
             $extension = File::extension($request->import_file->getClientOriginalName());
          $course->saveCourse($data);  
        
         if($extension == "xlsx" || $extension == "xls" || $extension == "csv")
         {
+        error_log('message');
             $path = $request->file('import_file')->getRealPath();
             $file_data = Excel::load($path, function($reader) {})->get();
 
@@ -118,9 +119,10 @@ class CourseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function showResult(Request $request)
     {
         //
+        
     }
 
     /**

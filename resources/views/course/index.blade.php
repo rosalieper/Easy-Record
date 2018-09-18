@@ -6,11 +6,11 @@
 		<div class="btn-group mr-2" role="group" aria-label="First group">
                 <a href="{{action('CourseController@index')}}" class="btn btn-primary">Add Course </a>
                 <a href="{{action('StudentController@addStudent')}}" class="btn btn-primary">Add Student</a>
-                <a href="#" class="btn btn-primary">Add Option </a>
-                <a href="#" class="btn btn-primary">Add Lecturer </a>
+                <a href="{{action('OptionController@addOption')}}" class="btn btn-primary">Add Option </a>
+                <a href="{{action('LecturerController@addLecturer')}}" class="btn btn-primary">Add Lecturer </a>
                 <a href="#" class="btn btn-primary">Add Department </a>
-                <a href="#" class="btn btn-primary">Add User </a>
-            </div><br>
+                <a href="{{action('UserController@addUser')}}" class="btn btn-primary">Add User </a>
+        </div><br>
 		<h4>Add A Course</h4>
 	</div>
 	<div class="panel-body">
@@ -25,12 +25,12 @@
 			<label for="exampleInputEmail1">Course Instructor:</label>
 			<input type="text" name="course_instructor" placeholder="course instructor" class="form-control" required>
 			<label for="exampleInputEmail1">Course Status:</label>
-			<select class="form-control" id="exampleFormControlSelect1" name='course_option'required>
+			<select class="form-control" id="exampleFormControlSelect1" name='course_status'required>
 		      <option>C</option>
 		      <option>E</option>
 		    </select>
 			<label for="exampleInputEmail1">Course Level</label>
-			<select class="form-control" id="exampleFormControlSelect1" name='course_option'required>
+			<select class="form-control" id="exampleFormControlSelect1" name='course_level'required>
 		      <option>200</option>
 		      <option>300</option>
 		      <option>400</option>
@@ -52,6 +52,9 @@
 		    <input type="file" name="import_file">
 		    <button type="submit" class="btn btn-primary btn-right">Send</button>
 		</form>
+		<div class="col-md-5">
+			<img src="{{asset('images/course.png')}}">
+		</div>
 	</div>
 </div>
 @endsection

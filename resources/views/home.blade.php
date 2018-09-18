@@ -201,16 +201,16 @@ a.article{
                 <div class="btn-group mr-2" role="group" aria-label="First group">
                     <a href="{{action('CourseController@index')}}" class="btn btn-primary">Add Course </a>
                     <a href="{{action('StudentController@addStudent')}}" class="btn btn-primary">Add Student</a>
-                    <a href="#" class="btn btn-primary">Add Option </a>
-                    <a href="#" class="btn btn-primary">Add Lecturer </a>
+                    <a href="{{action('OptionController@addOption')}}" class="btn btn-primary">Add Option </a>
+                    <a href="{{action('LecturerController@addLecturer')}}" class="btn btn-primary">Add Lecturer </a>
                     <a href="#" class="btn btn-primary">Add Department </a>
-                    <a href="#" class="btn btn-primary">Add User </a>
+                    <a href="{{action('UserController@addUser')}}" class="btn btn-primary">Add User </a>
                 </div><br><hr>
                 <div class="btn-group mr-2" role="group" aria-label="First group">
-                    <a href="{{action('ExamController@index')}}" class="btn btn-warning">Add Exam Marks </a>
                     <a href="{{action('ExamController@showCA')}}" class="btn btn-warning">Add CA Marks</a>
-                    <a href="{{action('ExamController@showMerge')}}" class="btn btn-warning">Merge Marks </a>
-                    <a href="#" class="btn btn-warning">Generate Statistics table </a>
+                    <a href="{{action('ExamController@index')}}" class="btn btn-warning">Add Exam Codes </a>
+                    <a href="{{action('ExamController@showExam')}}" class="btn btn-warning">Exam Marks </a>
+                <a href="{{action('CourseController@courseResult')}}" class="btn btn-warning">Generate results table </a>
                 </div><br><hr>
                 <div class="btn-group mr-2" role="group" aria-label="First group">
                     <a href="#" class="btn btn-default text-primary">Class List </a>

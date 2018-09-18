@@ -11,23 +11,32 @@
                 <a href="#" class="btn btn-primary">Add Department </a>
                 <a href="{{action('UserController@addUser')}}" class="btn btn-primary">Add User </a>
                 </div>
-            <h3>Add A student to a course</h3><hr>
+            <h3>Add A User</h3><hr>
 	</div>
 	<div class="panel-body">
 		<div class="col-md-6">
-			<label>Student Name:</label>
+			<label>User Name:</label>
 			<input type="text" name="student_name" class="form-control" placeholder="please enter name" required>
-			<label>Student matricule</label>
-			<input type="text" name="student matricule" class="form-control" placeholder="please enter matricule" required>
-			<label>Level</label>
-			<input type="text" name="level" class="form-control" placeholder="please enter level" required>
-			<label>Course Code:</label>
-			<input type="text" name="course_code" class="form-control" placeholder="please enter course code" required>
+			<label>Email: </label>
+			<input type="email" name="email" class="form-control" placeholder="enter user email" required>
+			<label>Phone</label>
+			<input type="text" name="phone" class="form-control" placeholder="phone number" required>
+			<label>Password</label>
+			<input type="password" name="password" class="form-control" placeholder="password" required>
+			<label>Confirm</label>
+			<input type="password" name="password" class="form-control" placeholder="password" required>
+			<br><label>User role</label>
+			<div class="radio">
+			  <label><input type="radio" name="optradio">Super Admin</label>
+			</div>
+			<div class="radio">
+			  <label><input type="radio" name="optradio" checked>Partial Admin</label>
+			</div>
 			
 			 <br><input type="submit" name="send" class="btn btn-primary">
 		</div>
 		<div class="col-md-5">
-			<img src="{{asset('images/student.jpeg')}}">
+			<img src="{{asset('images/user.png')}}">
 		</div>
 	</div>
 	

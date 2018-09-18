@@ -11,23 +11,26 @@
                 <a href="#" class="btn btn-primary">Add Department </a>
                 <a href="{{action('UserController@addUser')}}" class="btn btn-primary">Add User </a>
                 </div>
-            <h3>Add A student to a course</h3><hr>
+            <h3>Add Lecturer</h3><hr>
 	</div>
 	<div class="panel-body">
 		<div class="col-md-6">
-			<label>Student Name:</label>
-			<input type="text" name="student_name" class="form-control" placeholder="please enter name" required>
-			<label>Student matricule</label>
-			<input type="text" name="student matricule" class="form-control" placeholder="please enter matricule" required>
-			<label>Level</label>
-			<input type="text" name="level" class="form-control" placeholder="please enter level" required>
-			<label>Course Code:</label>
-			<input type="text" name="course_code" class="form-control" placeholder="please enter course code" required>
-			
-			 <br><input type="submit" name="send" class="btn btn-primary">
+			<label>Lecturer Name:</label>
+			<input type="text" name="lecturer_name" class="form-control" placeholder="please enter name" required>
+			<label>Lecturer Phone:</label>
+			<input type="text" name="lecturer_phone" class="form-control" placeholder="please enter phone number" required>
+			<label>Lecturer email:</label>
+			<input type="text" name="lecturer_email" class="form-control" placeholder="please enter email" required>
+			<label>Department:</label>
+			<select class="form-control" name='course_option'required>
+		      <option>Computer</option>
+		      <option>Electrical</option>
+		      <option>Civil</option>
+		    </select>
+			<br><input type="submit" name="send" class="btn btn-primary">
 		</div>
 		<div class="col-md-5">
-			<img src="{{asset('images/student.jpeg')}}">
+			<img src="{{asset('images/lecturer.png')}}">
 		</div>
 	</div>
 	

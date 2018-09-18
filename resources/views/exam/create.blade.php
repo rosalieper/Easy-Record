@@ -2,12 +2,10 @@
 
 @section('forms')
 <div class="">
-	@if ($errors->any())
+	@if (is_string($data))
 	    <div class="alert alert-danger">
 	        <ul>
-	            @foreach ($errors->all() as $error)
-	                <li>{{ $error }}</li>
-	            @endforeach
+	                <li>{{ $data }}</li>
 	        </ul>
 	    </div>
 	@endif
@@ -23,6 +21,7 @@
   						<th class="text-center">Actions</th>
   					</tr>
   				</thead>
+  			@if(!is_string($data))
   				@foreach($data as $item)
   				<tr class="item{{$item->id}}">
   					<td>{{$item->exam_code}}</td>
@@ -37,7 +36,7 @@
   						</button></td>
   				</tr>
   				@endforeach
-
+  			@endif
   			</table>
   		</div>
 	</div>
@@ -57,9 +56,17 @@
 			    </select><br>
 			    <label for="option">Year</label>
 			    <select class="form-control" id="exampleFormControlSelect1" name='year'required>
+			      <option>09</option>
+			      <option>10</option>
+			      <option>11</option>
+			      <option>12</option>
+			      <option>13</option>
 			      <option>14</option>
 			      <option>15</option>
 			      <option>16</option>
+			      <option>17</option>
+			      <option>18</option>
+			      <option>19</option>
 			    </select><br>
 			    <label for="option">Lettercode</label>
 			    <select class="form-control" id="exampleFormControlSelect1" name='letter_code'required>
